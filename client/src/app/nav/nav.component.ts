@@ -18,12 +18,16 @@ export class NavComponent implements OnInit {
   ngOnInit(): void { }
 
   login(){
-    this.accountService.login(this.model).subscribe(response =>{
+    /* this.accountService.login(this.model).subscribe(response =>{
       this.router.navigateByUrl("/members");
     }, err => {
       console.log(err);
       this.toastr.error(err.error);
-    });
+    }); */
+
+    this.accountService.login(this.model).subscribe(response =>{
+      this.router.navigateByUrl("/members");
+    })
   }
 
   logout(){
