@@ -44,7 +44,7 @@ namespace API.Controllers
            /*  var user = await _userRepository.GetUserByNameAsync(username); 
             return _mapper.Map<MemberDTO>(user); */
             
-            return await _userRepository.GetMemberNameByAsync(username);
+            return await _userRepository.GetMemberByNameAsync(username);
 
         }
 

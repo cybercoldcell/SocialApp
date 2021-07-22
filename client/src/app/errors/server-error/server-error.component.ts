@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { timeStamp } from 'console';
 
 @Component({
   selector: 'app-server-error',

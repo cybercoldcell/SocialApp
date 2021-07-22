@@ -21,7 +21,7 @@ namespace API.Data
             _context = context;
         }
 
-        public async Task<MemberDTO> GetMemberNameByAsync(string username)
+        public async Task<MemberDTO> GetMemberByNameAsync(string username)
         {
             return await _context.Users
                     .Where(x => x.UserName == username)
