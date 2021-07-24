@@ -7,6 +7,7 @@ using System.Text;
 using API.DTOs;
 using Microsoft.EntityFrameworkCore;
 using API.Interfaces;
+using System.Linq;
 
 namespace API.Controllers
 {
@@ -48,7 +49,9 @@ namespace API.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserDTO>> UserLogin(LogInDTO oDTO)
         {
-            var oUser = await _context.Users.SingleOrDefaultAsync(x => x.UserName == oDTO.UserName);
+            var oUser = await _context.Users
+            .Include(p => p.Photos)
+            .SingleOrDefaultAsync(x => x.UserName == oDTO.UserName);
             if (oUser == null) return Unauthorized("Invalid user name.");
 
             using var oHmac = new HMACSHA512(oUser.PasswordSalt);
@@ -61,7 +64,8 @@ namespace API.Controllers
 
             return new UserDTO{
                 UserName = oUser.UserName,
-                Token = _tokenService.CreateToken(oUser)
+                Token = _tokenService.CreateToken(oUser),
+                PhotoUrl = oUser.Photos.FirstOrDefault(x => x.IsMain)?.Url
             };
 
 
